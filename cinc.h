@@ -5,11 +5,10 @@
 extern "C"
 {
 #endif
-    typedef struct{
-        int (*add)(int,int);
-    }MyType;
-
     typedef int (*MyCallBack)(int,int);
+    typedef struct{
+        MyCallBack add;
+    }MyType;
 
     void registerCallbak(MyCallBack callback);
     void registerType(MyType *mytype);
