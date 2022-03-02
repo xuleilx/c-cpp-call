@@ -21,6 +21,6 @@ int main(int argc, char* argv[]) {
     registerCallbak(A::funcA);
     registerType(ptr);
     test();
-
+    delete ptr;
     return 0;
 }
