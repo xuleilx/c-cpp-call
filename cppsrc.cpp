@@ -7,20 +7,34 @@
 class A
 {
 public:
-    static int funcA(int a, int b) {
-        std::cout<<"Hi: "<<a + b<<std::endl;
-        return a + b;
+    static void funcA(void *object)
+    {
+        std::cout <<__PRETTY_FUNCTION__ << std::endl;
+        if (object)
+        {
+            A *ptr = static_cast<A *>(object);
+            ptr->funcB();
+        }
+    }
+    void funcB()
+    {
+        std::cout << __PRETTY_FUNCTION__ << std::endl;
     }
 };
 
+int main(int argc, char *argv[])
+{
+    MyType *ptr = (MyType *)malloc(sizeof(MyType));
+    ptr->myfunc = A::funcA;
+    auto ptrA = new A();
 
-int main(int argc, char* argv[]) {
-    MyType *ptr = (MyType*)malloc(sizeof(MyType));
-    ptr->add = A::funcA;
-
-    registerCallbak(A::funcA);
+    std::cout<<"======= TEST1 ======="<<std::endl;
+    registerCallbak(A::funcA, ptrA);
+    std::cout<<"======= TEST2 ======="<<std::endl;
     registerType(ptr);
+    std::cout<<"======= TEST3 ======="<<std::endl;
     test();
     delete ptr;
+    delete ptrA;
     return 0;
 }
